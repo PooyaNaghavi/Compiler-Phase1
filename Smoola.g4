@@ -15,7 +15,7 @@ class
     :
         'class' class_name = ID '{' '}'
     ;
-
+// todo: put "int" or not?!! the problem is this
 main_function
     :
         'def' 'main' '()' ':' 'int' '{' '}'
@@ -25,15 +25,17 @@ function
     :
         'def' function_name = ID '{' '}'
     ;
-
+// todo : what to do with "TYPE"?!
+// todo : consider 2-d array
 variable
     :
         'var' variable_name = ID ':' TYPE '[]'? ';' // ??? Class TYPE
     ;
-
+// todo : construct for class
+// todo : extend class
 declaration
     :
-        variable_name = ID '=' 'new' TYPE '();' // ??? Class TYPE
+        variable_name = ID '=' 'new' TYPE '();' ?  // ??? Class TYPE
     ;
 
 loop
