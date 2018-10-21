@@ -28,26 +28,37 @@ function
 
 variable
     :
-        'var' variable_name = ID ':' TYPE
+        'var' variable_name = ID ':' TYPE '[]'? ';' // ??? Class TYPE
     ;
 
-array_variable
+declaration
     :
-        'var'
+        variable_name = ID '=' 'new' TYPE '();' // ??? Class TYPE
     ;
 
 loop
     :
-        'while'
+        'while' '(' statement ')' '{' statement* '}'
     ;
+
 if
     :
-        'if'
+        'if' statement 'then' expression ('else' expression)?
+    ;
+
+statement
+    :
+
+    ;
+
+expression
+    :
+
     ;
 
 write
     :
-        'writeln'
+        'writeln' '(' expression ')'
     ;
 
 TYPE
@@ -74,10 +85,12 @@ NEW_LINE
     :
 		'\r'? '\n'+
 	;
+
 ID
     :
         [a-zA-Z_][a-zA-Z0-9_]*
     ;
+
 COMMENT
     :
         '#'(~[\r\n])* -> skip
