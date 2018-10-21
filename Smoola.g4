@@ -13,7 +13,7 @@ program
 
 class
     :
-        'class' class_name = ID '{' '}'
+        'class' class_name = ID '{' statement* '}'
     ;
 
 main_function
@@ -38,12 +38,12 @@ declaration
 
 loop
     :
-        'while' '(' statement ')' '{' statement* '}'
+        'while' '(' statement ')' '{' expression* '}'
     ;
 
 if
     :
-        'if' statement 'then' expression ('else' expression)?
+        'if' expression 'then' expression ('else' expression)?
     ;
 
 statement
@@ -58,7 +58,7 @@ expression
 
 write
     :
-        'writeln' '(' expression ')'
+        'writeln' '(' expression ');'
     ;
 
 TYPE
@@ -78,7 +78,7 @@ STRING
 
 WHITE_SPACE
     :
-        (' '|'\t'|'\r') -> skip
+        (' ' | '\t' | '\r') -> skip
     ;
 
 NEW_LINE
