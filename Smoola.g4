@@ -9,8 +9,9 @@ grammar Smoola;
     //todo main class should be first and doesn't have child
 program
     :
-        (main_class)
+//        (main_class)
 //        (classes | NEW_LINE)*
+        var_def
     ;
 
     //todo class name, function name, variable name should be unique
@@ -27,18 +28,18 @@ returnExpression
     :
         NUMBER| ID
     ;
-main_class
-    :
-        'class' class_name = ID '{' main_function '}'
-    ;
+//main_class
+//    :
+//        'class' class_name = ID '{' main_function '}'
+//    ;
 
-main_function
-    :
-        'def' 'main' '()' ':' 'int' '{'
-            statement
-            main_return | returning
-        '}'
-    ;
+//main_function
+//    :
+//        'def' 'main' '()' ':' 'int' '{'
+//            statement
+//            main_return | returning
+//        '}'
+//    ;
 main_return
     :
         'return' newObj '.' method ';'
@@ -151,6 +152,14 @@ leftMostEXP
 //        ID ('[' (ID | POSITIVE_NUMBER) ']')? '=' ID | NUMBER | expression ';'
 //    ;
 //
+var_def
+    :
+        'var' ID':' TYPE ';'
+    ;
+TYPE
+    :
+        'int' | 'string' | 'boolean' | 'int[' ']' | 'Class'
+    ;
 Negative_SIGN:
         '-'
     ;
@@ -169,14 +178,10 @@ LOGIC_SIGN
         '!' | '||' | '&&'
     ;
 //
-TYPE
-    :
-        ('int' | 'string' | 'boolean')
-    ;
 
 NUMBER
     :
-		('-')[0-9]+
+		(('-' | '+')[1-9]+[0-9]*) | [0-9]+
 	;
 
 POSITIVE_NUMBER
