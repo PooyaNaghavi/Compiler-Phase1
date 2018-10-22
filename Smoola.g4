@@ -5,13 +5,12 @@ grammar Smoola;
         System.out.println(obj);
    }
 }
-
-    //todo main class should be first and doesn't have child
+// todo class has constructors or only come like this : ClassName()
 program
     :
 //        (main_class)
 //        (classes | NEW_LINE)*
-        var_def
+        var_assign+
     ;
 
     //todo class name, function name, variable name should be unique
@@ -40,14 +39,14 @@ returnExpression
 //            main_return | returning
 //        '}'
 //    ;
-main_return
-    :
-        'return' newObj '.' method ';'
-    ;
-newObj
-    :
-        'new' ID '()' | '(' arguments ')'
-    ;
+//main_return
+//    :
+//        'return' newObj '.' method ';'
+//    ;
+//newObj
+//    :
+//        'new' ID '()' | '(' arguments ')'
+//    ;
 returning
     :
         'return' returnExpression ';'
@@ -156,6 +155,18 @@ var_def
     :
         'var' ID':' TYPE ';'
     ;
+var_assign
+    :
+        ID '='  (primitive | nonprimitive) ';'
+    ;
+primitive
+    :
+        NUMBER | STRING | Bool
+    ;
+nonprimitive
+    :
+        'new' (ID '()'| 'int''[' (ID|NUMBER) ']')
+    ;
 TYPE
     :
         'int' | 'string' | 'boolean' | 'int[' ']' | 'Class'
@@ -193,7 +204,10 @@ STRING
     :
         '"' (~('"'))* '"'
     ;
-
+Bool
+    :
+        'true' | 'false'
+    ;
 WHITE_SPACE
     :
         (' ' | '\t' | '\r' | '\n') -> skip
